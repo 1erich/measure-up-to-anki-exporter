@@ -9,9 +9,7 @@ const AnkiExport = require('anki-apkg-export').default;
 const apkg = new AnkiExport('deck-name');
 
 app.post('/', (req, res) => {
-    var row = [[req.body.question, joinAndReturn(req.body.answers), joinAndReturn(req.body.options), joinAndReturn(req.body.expl)]];
-
-    var front = `
+    const front = `
     ${req.body.question}
     <br />
     ---
@@ -19,7 +17,7 @@ app.post('/', (req, res) => {
     ${joinAndReturn(req.body.options)}
     `;
 
-    var back = `
+    const back = `
     ${joinAndReturn(req.body.answers)}
     <br />
     ---
