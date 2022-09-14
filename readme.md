@@ -1,3 +1,5 @@
+install automa chrome extension: https://chrome.google.com/webstore/detail/automa/infppggnoaenmfagbfknfkancpbljcca
+
 import automa workflow
 
 install the listener `npm install`
