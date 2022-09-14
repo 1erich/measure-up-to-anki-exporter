@@ -4,22 +4,37 @@ const port = 3010
 
 app.use(express.json());
 
-var spread_sheet = require('spread_sheet');
-
-var path = require('path')
-var filePath = path.join(path.resolve(), 'data', 'db.xlsx');
-var sheetName = "Sheet1";
+const fs = require('fs');
+const AnkiExport = require('anki-apkg-export').default;
+const apkg = new AnkiExport('deck-name');
 
 app.post('/', (req, res) => {
+    var row = [[req.body.question, joinAndReturn(req.body.answers), joinAndReturn(req.body.options), joinAndReturn(req.body.expl)]];
 
-    console.log(req.body);
+    var front = `
+    ${req.body.question}
+    ---
+    ${joinAndReturn(req.body.options)}
+    `;
 
-    for (var i = 0; i < 2; i++) {
-        var row = [[req.body.question, joinAndReturn(req.body.answers), joinAndReturn(req.body.options), joinAndReturn(req.body.expl)]];
-        spread_sheet.addRow(row, filePath, sheetName, function (err, result) {
-            console.log(err, result)
+    var back = `
+    ${joinAndReturn(req.body.answers)}
+    ---
+    ${req.body.expl}
+    `;
+
+    apkg.addCard(front, back);
+    res.send('ok!');
+})
+
+app.get('/export', (req, res) => {
+    apkg
+        .save()
+        .then(zip => {
+            fs.writeFileSync('./output.apkg', zip, 'binary');
+            console.log(`Package has been generated: output.pkg`);
         })
-    }
+        .catch(err => console.log(err.stack || err));
 })
 
 app.listen(port, () => {
@@ -28,7 +43,7 @@ app.listen(port, () => {
 
 function joinAndReturn(array) {
     if (Array.isArray(array)) {
-        array = array.join("\n\n");
+        array = array.join("\n");
     }
 
     return array
