@@ -13,17 +13,22 @@ app.post('/', (req, res) => {
 
     var front = `
     ${req.body.question}
+    <br />
     ---
+    <br />
     ${joinAndReturn(req.body.options)}
     `;
 
     var back = `
     ${joinAndReturn(req.body.answers)}
+    <br />
     ---
+    <br />
     ${req.body.expl}
     `;
 
     apkg.addCard(front, back);
+    console.log('card written...')
     res.send('ok!');
 })
 
@@ -43,7 +48,7 @@ app.listen(port, () => {
 
 function joinAndReturn(array) {
     if (Array.isArray(array)) {
-        array = array.join("\n");
+        array = array.join("<br />");
     }
 
     return array
