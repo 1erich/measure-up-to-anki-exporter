@@ -1,0 +1,15 @@
+{
+  "name": "measure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "listen": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "spread_sheet": "^2.2.1"
+  }
+}
