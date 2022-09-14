@@ -6,9 +6,11 @@ start the listener server `npm run listen`
 
 active tab should be a measure up question
 
+--- (repeat till no more questions avaliable) ---
 run workflow
 
-next question (repeat till no more questions avaliable)
+next question
+--- (repeat till no more questions avaliable) ---
 
 call GET http://localhost:3010/export (in browser is ok)
 
